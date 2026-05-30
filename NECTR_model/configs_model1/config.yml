@@ -1,0 +1,101 @@
+# Model Configuration File
+##python train.py --config_folder config
+
+model_arguments:
+  # Model architecture type
+  # Options: 'rbf', 'concat', or squared difference
+  model_type: 'concat'
+  
+  # Network depth parameters
+  residual_depth: 3  # Number of residual layers for PHI (pre-activation network)
+  proj_depth: 3      # Depth of kernel projection network
+  
+  # Dimension parameters
+  latent_dim: 128     # Output dimension of PHI
+  in_channel: 3      # Number of input channels (3 for RGB, 1 for grayscale)
+  
+  # Patch and window parameters
+  patch_rad: 3       # Patch radius (patch_size = 2*patch_rad + 1)
+  window_rad: 7      # Window radius for search
+  
+  # Noise parameters
+  blind: false       # Whether to use blind denoising (no noise level input)
+  
+  # Output activation
+  # Options: 'exp', 'control_sigmoid', 'sig'
+  output_activation: 'control_sigmoid'
+
+# Training configuration
+train_arguments:
+  # Root directory for training datasets
+  root_data_dir: './data/train'
+  
+  # Training datasets
+  dataset:
+    - "BSD400"
+    - "DIV2K"
+    - "Flickr2K"
+    - "waterloo_exploration"
+    # - "CBSD68"
+  
+  # Training hyperparameters
+  learning_rate: 1e-4
+  batch_size: 2
+  num_workers: 4
+  crop_size: 128
+  
+  # Learning rate scheduler
+  # Options: 'step', 'cosine', 'exponential', 'plateau'
+  lr_scheduler: 'cosine'
+  lr_step_size: 10000        # For 'step' scheduler: step size
+  lr_gamma: 0.5              # For 'step' and 'exponential': decay factor
+  lr_min: 1e-6               # For 'cosine': minimum learning rate
+  lr_warmup_iterations: 500000 # Warmup iterations
+  
+  # Reference image noise factor (factor to add noise to reference image)
+  reference_image_noise_factor: 0.5
+  
+  # Noise level range for training
+  sigma_max: 50.0    # Maximum noise level (will be normalized by 255)
+  sigma_min: 0.0     # Minimum noise level (will be normalized by 255)
+  
+  # Training iterations
+  iterations: 300001
+  
+  # Checkpoint save interval (save checkpoint every N iterations)
+  checkpoint_save_interval: 10000
+  
+  # Test interval (run testing every N iterations)
+  test_interval: 100000
+
+# Testing configuration
+test_arguments:
+  # Root directory for testing datasets
+  root_data_dir: './data/train'
+  
+  # Testing datasets
+  dataset:
+    # - "set12"
+    # - "set3c"
+    # - "bsd10"
+    # - "bsd68"
+    - "set3c"
+    # - "CBSD68"
+    # - "CBSD10"
+    - "castle"
+  
+  # Reference image noise factor for testing
+  reference_image_noise_factor: 0.0
+  
+  # Test noise levels (sigma values)
+  test_sigma_levels:
+    - 10
+    - 15
+    - 20
+    - 25
+    - 50
+  
+  # Compare with baseline methods
+  compare_methods:
+    - "bm3d"
+    - "drunet"
