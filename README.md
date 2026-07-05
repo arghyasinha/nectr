@@ -1,9 +1,18 @@
 # NECTR: NonExpansive Denoising for ConTractive Reconstruction
 
-Official implementation of **“Trainable Nonexpansive Denoisers for Contractive Image Reconstruction”**, accepted at **ICML 2026**.
+[![Paper](https://img.shields.io/badge/Paper-OpenReview-blue)](https://openreview.net/pdf?id=Z6j8S5LWmL)
+
+Official implementation of **“Trainable Nonexpansive Denoisers for Contractive Image Reconstruction”**, accepted at **International Conference on Machine Learning (ICML 2026)**.
+
+**Authors:**  
+[Arghya Sinha](https://arghyasinha.github.io) · 
+[Aditya Banerjee](https://in.linkedin.com/in/aditya-banerjee-4253a21b7) · 
+[Trishit Mukherjee](https://www.linkedin.com/in/trishit360/) · 
+[Kunal N. Chaudhury](https://sites.google.com/site/kunalnchaudhury/home)
 
 NECTR implements a trainable denoiser that is **globally nonexpansive by design** and can be used inside a plug-and-play reconstruction framework to obtain a **contractive reconstruction operator** under mild assumptions.
 
+![NECTR ICML 2026 Poster](https://icml.cc/media/PosterPDFs/ICML%202026/63206.png?t=1783074987.177377)
 ## Installation
 
 Clone the repository:
